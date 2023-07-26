@@ -1,0 +1,4 @@
+This is a modified version that allows you to connect to an already running, but frozen process.
+
+The original is here:
+https://sourceforge.net/projects/dxwnd/

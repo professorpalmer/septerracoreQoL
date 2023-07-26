@@ -1,0 +1,1 @@
+.\Launcher\Septerra.exe convert tiff2am .\Data\anim *.tiff

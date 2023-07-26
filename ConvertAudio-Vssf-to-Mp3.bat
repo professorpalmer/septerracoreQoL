@@ -1,0 +1,1 @@
+.\Launcher\Septerra.exe convert vssf2mp3 .\Data\sound *.vssf

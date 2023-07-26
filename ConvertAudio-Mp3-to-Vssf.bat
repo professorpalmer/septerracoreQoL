@@ -1,0 +1,1 @@
+.\Launcher\Septerra.exe convert mp32vssf .\Data\sound *.mp3

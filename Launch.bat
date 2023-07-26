@@ -1,0 +1,1 @@
+.\Launcher\Septerra.exe run . -M -r
