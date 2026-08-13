@@ -8,16 +8,8 @@ What this stack fixes
 ---------------------
 - Exclusive DirectDraw fullscreen that plunges desktop resolution on Win11
 - Ugly alt-tab / broken OBS Game Capture on exclusive surfaces
-- Intro movies no longer flip the desktop into 640-mode (alt-tab during FMV)
-- Combat F skips one ATB bar and does not also grant an enemy a turn on that skip
-- Crash / combat F / auto-run via Albeoris inject (MIT upstream, QoL-forked Core.dll)
+- Crash / combat F / auto-run via Albeoris inject (MIT upstream)
 - Optional FMV via QuickTime codecs from the game qt\ folder
-
-Working checkpoint
-------------------
-GitHub master @ 9d2d408 is the last known-good stack before the intro/F-key
-changes. Revert the repo to that commit if a later overlay regresses, then
-re-run scripts\deploy-to-steam.ps1.
 
 Architecture (2026)
 -------------------
@@ -38,10 +30,6 @@ Quick deploy (this machine / any Steam install)
    Accept the UAC prompt for QuickTime (SysWOW64 copy).
 
 4) Play via Steam Play or Launch.bat — both start Albeoris inject (F-skip, auto-run, movies).
-
-The forked Core.dll reads GameInjectionHookAddressTable from the game root. Deploy
-and Launch.bat copy it there automatically. If the game silently fails to boot,
-check Septerra.log for FileNotFoundException on that file.
 
 Manual deploy
 -------------
@@ -77,7 +65,6 @@ Will delete dgVoodoo drop-ins and may remove overlay files. Re-run deploy-to-ste
 Credits / provenance
 --------------------
 - Albeoris Septerra tools — MIT (https://github.com/Albeoris/Septerra)
-  Combat F is a local fork of BattleDispatcher / HotKeyManager (patches\albeoris).
 - dgVoodoo2 — Dege (https://dege.freeweb.hu/dgVoodoo2/)
 - Legacy dxwnd\ tree — optional SourceForge DxWnd-based pack (historical)
 

@@ -33,11 +33,6 @@ internal static class SepterraSteamEntry
             return 1;
         }
 
-        string tableSrc = Path.Combine(gameDir, "Launcher", "GameInjectionHookAddressTable");
-        string tableDst = Path.Combine(gameDir, "GameInjectionHookAddressTable");
-        if (File.Exists(tableSrc))
-            File.Copy(tableSrc, tableDst, overwrite: true);
-
         var start = new ProcessStartInfo
         {
             FileName = albeoris,
