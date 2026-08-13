@@ -1,0 +1,14 @@
+.codegraph/
+.puppetmaster/
+*.user
+*.suo
+.vs/
+bin/
+obj/
+# never commit commercial game content
+*.db
+*.DB
+septerra.ini
+savedata/
+Data/
+DATA/

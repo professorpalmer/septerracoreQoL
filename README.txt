@@ -1,53 +1,73 @@
-You will need a Steam copy of Septerra Core.
-This patch does NOT provide the game files. 
+Septerra Core Quality of Life (modern Win11 rebuild)
+====================================================
 
-This patch provides :
-- Instant charge of combat turns with an F press.
-- Default auto-run vs shift-to-run
-- Fixing of cutscenes (can be enabled or disabled)
-- Fixing of resolution scaling on modern systems.
-- Enables the ability to be captured by broadcasting software.
-- All original known issues with the game have been fixed in this patch. You can find a list of those issues in the original readme.txt included with the Septerra Core game.
+You need a purchased Steam (or GOG) copy of Septerra Core.
+This patch does NOT provide game files. Never commit *.db / game exe / saves.
 
-1) Install Septerra Core via Steam.
-2) Launch the game once to have it verify it's registry. You can close it immediately after the launch install and first boot of the game.
+What this stack fixes
+---------------------
+- Exclusive DirectDraw fullscreen that plunges desktop resolution on Win11
+- Ugly alt-tab / broken OBS Game Capture on exclusive surfaces
+- Crash / combat F / auto-run via Albeoris inject (MIT upstream)
+- Optional FMV via QuickTime codecs from the game qt\ folder
 
-To add this patch to a Steam copy of the game, follow these steps :
+Architecture (2026)
+-------------------
+PRIMARY display: dgVoodoo2 (MS\x86 DDraw.dll) — borderless, 4:3, streamable
+QoL / inject:    Albeoris Launcher (Launcher\Septerra.exe)
+DEFAULT launch:  Launch.bat -> run . -r   (auto-run ON, movies ON)
+DxWnd:           OPTIONAL fallback only (legacy dxwnd\ folder). Do not stack on dgVoodoo.
 
-1) Copy/extract all of the contents EXCEPT for this .txt
-2) Paste/extract them in the Steam Septerra Core folder
-3) Click the "Launch.bat" to have it extract the game data from the DATA folder
-4) Enjoy the game.
+Quick deploy (this machine / any Steam install)
+----------------------------------------------
+1) Install Septerra Core on Steam. Launch once (creates registry + septerra.ini).
+2) Extract dgVoodoo2 (tested: 2.86.4) somewhere, e.g. Downloads\dgVoodoo2_86_4
+3) From this repo:
+
+   powershell -ExecutionPolicy Bypass -File .\scripts\deploy-to-steam.ps1
+
+   Or pass -GameRoot / -DgVoodooRoot if paths differ.
+   Accept the UAC prompt for QuickTime (SysWOW64 copy).
+
+4) Play via Steam Play or Launch.bat — both start Albeoris inject (F-skip, auto-run, movies).
+
+Manual deploy
+-------------
+1) Copy Launcher\ and Launch.bat (+ optional Unpack/Convert bats) into the Steam game folder.
+2) Copy dgVoodoo2 MS\x86\DDraw.dll, D3DImm.dll (and D3D8/D3D9) + dgVoodoo\dgVoodoo.conf into the game root.
+3) Run qt\QuickTimeInstaller.bat as Administrator once (FMV).
+4) Start Launch.bat
+
+Launch.bat flags
+----------------
+  .\Launcher\Septerra.exe run . -r
+
+- Remove -r to disable default run (shift to run becomes vanilla behavior depending on game).
+- Add -M only if you must skip movies (not recommended once QT is installed).
 
 Key remapping
-1) Right click the septerra.ini (created when the base game is legally purchased and downloaded) file in root directory. 
-2) Open with notepad or any text editor
-3) Adjust to your liking. 
-4) Save and exit. Relaunch the game.
+-------------
+Edit septerra.ini in the game root (created after first legal launch).
 
-Re-enabling cutscenes / Disabling Auto-Run :
-1) Locate the Launch.bat included in this patch.
-2) Right click the file. Choose "edit".
-3) The code should be listed as ".\Launcher\Septerra.exe run . -M -r"
-4) Remove the "-M" to enable cutscenes. Remove the "-r" to disable auto-run.
-5) Save and close the file. Relaunch the game with the added changes.
+Window size / scaling
+---------------------
+Prefer editing dgVoodoo.conf (Resolution / ScalingMode) or run dgVoodooCpl.exe.
+Dragging a raw exclusive window is the wrong tool — that is why DxWnd was used historically.
 
-To adjust window size of your game the correct way (Click and drag to change size distorts the image) :
+OBS
+---
+Use Game Capture or Window Capture on the game window. Display Capture is a last resort.
 
-1) After having followed the previous steps, close any open instance of the game.
-2) Open the "dxwnd" folder.
-3) Launch the "dxwnd.exe"
-4) When the GUI pops up, right click Septerra Core and choose "Modify"
-5) On the window that pops up you will see "Window intial position and size"
-6) In the W and H boxes, input your preferred values.
-7) Save changes by clicking "Ok" and exiting DXWND. It will ask if you want to save the changed tasks. Say yes.
-8) Enjoy the game.
+Steam Verify Integrity
+----------------------
+Will delete dgVoodoo drop-ins and may remove overlay files. Re-run deploy-to-steam.ps1 after verify.
 
-Some examples of 4:3 resolution sizes are : 
-	320x200
-	400x300
-	640x480
-	800x600
-	1024x768
-	1280x960
-	1280x1024
+Credits / provenance
+--------------------
+- Albeoris Septerra tools — MIT (https://github.com/Albeoris/Septerra)
+- dgVoodoo2 — Dege (https://dege.freeweb.hu/dgVoodoo2/)
+- Legacy dxwnd\ tree — optional SourceForge DxWnd-based pack (historical)
+
+4:3 size examples (dgVoodoo Resolution)
+---------------------------------------
+640x480, 800x600, 1024x768, 1280x960
