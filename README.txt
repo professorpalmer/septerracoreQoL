@@ -8,7 +8,8 @@ What this stack fixes
 ---------------------
 - Exclusive DirectDraw fullscreen that plunges desktop resolution on Win11
 - Ugly alt-tab / broken OBS Game Capture on exclusive surfaces
-- Crash / combat F / auto-run via Albeoris inject (MIT upstream)
+- Crash / combat F / auto-run via Albeoris inject (MIT upstream, 2019 Core.dll)
+- Combat F advances one party ATB bar and does not also grant an enemy a turn
 - Optional FMV via QuickTime codecs from the game qt\ folder
 
 Architecture (2026)
@@ -30,6 +31,11 @@ Quick deploy (this machine / any Steam install)
    Accept the UAC prompt for QuickTime (SysWOW64 copy).
 
 4) Play via Steam Play or Launch.bat — both start Albeoris inject (F-skip, auto-run, movies).
+
+Launcher\Septerra.exe in this repo is already patched to inject septerra.bin
+(not the Steam Play trampoline). deploy-to-steam.ps1 re-applies that patch.
+Keep the 2019 Septerra.Core.dll; combat F is a surgical IL patch
+(tools\PatchAtbOneBar.cs), not a rebuild from current Albeoris GitHub.
 
 Manual deploy
 -------------
@@ -65,6 +71,7 @@ Will delete dgVoodoo drop-ins and may remove overlay files. Re-run deploy-to-ste
 Credits / provenance
 --------------------
 - Albeoris Septerra tools — MIT (https://github.com/Albeoris/Septerra)
+  Combat F is an IL patch of the 2019 BattleDispatcher (tools\PatchAtbOneBar.cs).
 - dgVoodoo2 — Dege (https://dege.freeweb.hu/dgVoodoo2/)
 - Legacy dxwnd\ tree — optional SourceForge DxWnd-based pack (historical)
 
