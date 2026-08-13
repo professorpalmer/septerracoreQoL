@@ -39,6 +39,10 @@ Quick deploy (this machine / any Steam install)
 
 4) Play via Steam Play or Launch.bat — both start Albeoris inject (F-skip, auto-run, movies).
 
+The forked Core.dll reads GameInjectionHookAddressTable from the game root. Deploy
+and Launch.bat copy it there automatically. If the game silently fails to boot,
+check Septerra.log for FileNotFoundException on that file.
+
 Manual deploy
 -------------
 1) Copy Launcher\ and Launch.bat (+ optional Unpack/Convert bats) into the Steam game folder.

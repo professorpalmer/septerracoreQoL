@@ -100,6 +100,12 @@ if (Test-Path $destLauncher) {
 }
 Copy-Item (Join-Path $RepoRoot 'Launcher') $destLauncher -Recurse -Force
 
+$tableSrc = Join-Path $destLauncher 'GameInjectionHookAddressTable'
+if (Test-Path $tableSrc) {
+  Copy-Item $tableSrc (Join-Path $GameRoot 'GameInjectionHookAddressTable') -Force
+  Write-Host 'Injected GameInjectionHookAddressTable into game root (required by forked Core.dll).'
+}
+
 foreach ($bat in @(
   'Unpack.bat', 'UnpackAndConvert.bat',
   'ConvertAudio-Mp3-to-Vssf.bat', 'ConvertAudio-Vssf-to-Mp3.bat',
